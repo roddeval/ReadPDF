@@ -39,6 +39,8 @@ namespace ReadPDF
             this.btnFile = new System.Windows.Forms.Button();
             this.btnProcessFile = new System.Windows.Forms.Button();
             this.txtInformation = new System.Windows.Forms.TextBox();
+            this.txtInformation2 = new System.Windows.Forms.TextBox();
+            this.chkProcessText = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -109,21 +111,43 @@ namespace ReadPDF
             // 
             // txtInformation
             // 
-            this.txtInformation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtInformation.Location = new System.Drawing.Point(26, 159);
+            this.txtInformation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtInformation.Location = new System.Drawing.Point(12, 159);
             this.txtInformation.Multiline = true;
             this.txtInformation.Name = "txtInformation";
             this.txtInformation.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtInformation.Size = new System.Drawing.Size(516, 271);
+            this.txtInformation.Size = new System.Drawing.Size(251, 271);
             this.txtInformation.TabIndex = 7;
+            // 
+            // txtInformation2
+            // 
+            this.txtInformation2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtInformation2.Location = new System.Drawing.Point(291, 159);
+            this.txtInformation2.Multiline = true;
+            this.txtInformation2.Name = "txtInformation2";
+            this.txtInformation2.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtInformation2.Size = new System.Drawing.Size(251, 271);
+            this.txtInformation2.TabIndex = 8;
+            // 
+            // chkProcessText
+            // 
+            this.chkProcessText.AutoSize = true;
+            this.chkProcessText.Location = new System.Drawing.Point(328, 91);
+            this.chkProcessText.Name = "chkProcessText";
+            this.chkProcessText.Size = new System.Drawing.Size(88, 17);
+            this.chkProcessText.TabIndex = 9;
+            this.chkProcessText.Text = "Process Text";
+            this.chkProcessText.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(554, 450);
+            this.Controls.Add(this.chkProcessText);
+            this.Controls.Add(this.txtInformation2);
             this.Controls.Add(this.txtInformation);
             this.Controls.Add(this.btnProcessFile);
             this.Controls.Add(this.btnFile);
@@ -152,6 +176,8 @@ namespace ReadPDF
         private System.Windows.Forms.Button btnFile;
         private System.Windows.Forms.Button btnProcessFile;
         private System.Windows.Forms.TextBox txtInformation;
+        private System.Windows.Forms.TextBox txtInformation2;
+        private System.Windows.Forms.CheckBox chkProcessText;
     }
 }
 

@@ -12,6 +12,8 @@ using iText.Forms;
 using iText.Kernel.Pdf;
 using iText.Forms.Fields;
 using System.IO;
+using iText.Kernel.Pdf.Canvas.Parser.Listener;
+using iText.Kernel.Pdf.Canvas.Parser;
 
 namespace ReadPDF
 {
@@ -24,7 +26,8 @@ namespace ReadPDF
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            txtPath.Text = Application.ExecutablePath;
+            //txtPath.Text = Application.ExecutablePath;
+            txtPath.Text = @"C:\Users\rdeva\source\repos\roddeval\MS549_Rod_DeValcourt_final_project";
         }
 
         private void btnPath_Click(object sender, EventArgs e)
@@ -106,49 +109,168 @@ namespace ReadPDF
             PdfFormField item = null;
             PdfString pdfString = null;
             PdfName pdfName = null;
+            PdfIndirectReference pdfIndirectReference = null;
             string value = "";
             Type type = null;
             string value2 = "";
+            string messageText = "";
+            StringBuilder stringBuilder = null;
+            byte ot = 0;
             if (pdfAcroForm != null)
             {
                 fields = pdfAcroForm.GetFormFields();
                 if (fields != null)
                 {
+                    stringBuilder = new StringBuilder();
                     foreach (string key in fields.Keys)
                     {
                         fields.TryGetValue(key,out item);
                         if (item != null)
                         {
-                            Debug.WriteLine(string.Format("key: {0}\r\nValue: {1}\r\n",key,item.GetValueAsString()));
 
-                            pdfName= item.GetFormType();
-                            if (pdfName != null)
-                            {
-                                value = pdfName.GetValue();
-                                Debug.WriteLine(string.Format("item: pdfName.GetFormType: {0}\r\n", value));
-
-                                type = pdfName.GetType();
-                                Debug.WriteLine(string.Format("item: pdfName.GetType: {0}\r\n", type.ToString()));
-
-                                value2 = pdfName.GetValue();
-                                Debug.WriteLine(string.Format("item: pdfName.GetValue: {0}\r\n", value2));
-                                
-                                pdfName.GetObjectType();
-                            }
+                            messageText = string.Format("key: {0}\r\nValue: {1}\r\n", key, item.GetValueAsString());
+                            stringBuilder.Append(messageText);
+                            stringBuilder.Append("\r\n");
+                            Debug.WriteLine(messageText);
 
                             pdfString = item.GetAlternativeName();
                             if (pdfString != null)
                             {
                                 value = pdfString.GetValue();
-                                Debug.WriteLine(string.Format("item: pdfString.GetAlternativeName: {0}\r\n", value));
+                                messageText = string.Format("item: pdfString.GetAlternativeName: {0}\r\n", value);
+                                stringBuilder.Append(messageText);
+                                stringBuilder.Append("\r\n");
+                                Debug.WriteLine(messageText);
                             }
 
-                            
+                            pdfName = item.GetFormType();
+                            if (pdfName != null)
+                            {
+                                value = pdfName.GetValue();
+                                messageText = string.Format("item: pdfName.GetValue: {0}\r\n", value);
+                                stringBuilder.Append(messageText);
+                                stringBuilder.Append("\r\n");
+                                Debug.WriteLine(messageText);
 
-                            Debug.WriteLine("----------\r\n");
+                                type = pdfName.GetType();
+                                messageText = string.Format("item: pdfName.GetType: {0}\r\n", type.ToString());
+                                stringBuilder.Append(messageText);
+                                stringBuilder.Append("\r\n");
+                                Debug.WriteLine(messageText);
+
+                                ot = pdfName.GetObjectType();
+                                value2 = ot.ToString();
+                                messageText = string.Format("item: pdfName.GetObjectType: {0}\r\n", value2);
+                                stringBuilder.Append(messageText);
+                                stringBuilder.Append("\r\n");
+                                Debug.WriteLine(messageText);
+                                                                
+                                pdfIndirectReference = pdfName.GetIndirectReference();
+
+                                if (pdfIndirectReference != null)
+                                {
+                                    messageText = string.Format("pdfIndirectReference.IsArray : {0}", pdfIndirectReference.IsArray().ToString());
+                                    stringBuilder.Append(messageText);
+                                    stringBuilder.Append("\r\n");
+                                    messageText = string.Format("pdfIndirectReference.IsBoolean : {0}", pdfIndirectReference.IsBoolean().ToString());
+                                    stringBuilder.Append(messageText);
+                                    stringBuilder.Append("\r\n");
+                                    messageText = string.Format("pdfIndirectReference.IsDictionary : {0}", pdfIndirectReference.IsDictionary().ToString());
+                                    stringBuilder.Append(messageText);
+                                    stringBuilder.Append("\r\n");
+                                    messageText = string.Format("pdfIndirectReference.IsFlushed : {0}", pdfIndirectReference.IsFlushed().ToString());
+                                    stringBuilder.Append(messageText);
+                                    stringBuilder.Append("\r\n");
+                                    messageText = string.Format("pdfIndirectReference.IsIndirect : {0}", pdfIndirectReference.IsIndirect().ToString());
+                                    stringBuilder.Append(messageText);
+                                    stringBuilder.Append("\r\n");
+                                    messageText = string.Format("pdfIndirectReference.IsIndirectReference : {0}", pdfIndirectReference.IsIndirectReference().ToString());
+                                    stringBuilder.Append(messageText);
+                                    stringBuilder.Append("\r\n");
+                                    messageText = string.Format("pdfIndirectReference.IsLiteral : {0}", pdfIndirectReference.IsLiteral().ToString());
+                                    stringBuilder.Append(messageText);
+                                    stringBuilder.Append("\r\n");
+                                    messageText = string.Format("pdfIndirectReference.IsModified : {0}", pdfIndirectReference.IsModified().ToString());
+                                    stringBuilder.Append(messageText);
+                                    stringBuilder.Append("\r\n");
+                                    messageText = string.Format("pdfIndirectReference.IsName : {0}", pdfIndirectReference.IsName().ToString());
+                                    stringBuilder.Append(messageText);
+                                    stringBuilder.Append("\r\n");
+                                    messageText = string.Format("pdfIndirectReference.IsNull : {0}", pdfIndirectReference.IsNull().ToString());
+                                    stringBuilder.Append(messageText);
+                                    stringBuilder.Append("\r\n");
+                                    messageText = string.Format("pdfIndirectReference.IsNumber : {0}", pdfIndirectReference.IsNumber().ToString());
+                                    stringBuilder.Append(messageText);
+                                    stringBuilder.Append("\r\n");
+                                    messageText = string.Format("pdfIndirectReference.IsReleaseForbidden : {0}", pdfIndirectReference.IsReleaseForbidden().ToString());
+                                    stringBuilder.Append(messageText);
+                                    stringBuilder.Append("\r\n");
+                                    messageText = string.Format("pdfIndirectReference.IsStream : {0}", pdfIndirectReference.IsStream().ToString());
+                                    stringBuilder.Append(messageText);
+                                    stringBuilder.Append("\r\n");
+                                    messageText = string.Format("pdfIndirectReference.IsString : {0}", pdfIndirectReference.IsString().ToString());
+                                    stringBuilder.Append(messageText);
+                                    stringBuilder.Append("\r\n");
+                                }
+
+                                messageText = string.Format("pdfName.IsArray : {0}", pdfName.IsArray().ToString());
+                                stringBuilder.Append(messageText);
+                                stringBuilder.Append("\r\n");
+                                messageText = string.Format("pdfName.IsBoolean : {0}", pdfName.IsBoolean().ToString());
+                                stringBuilder.Append(messageText);
+                                stringBuilder.Append("\r\n");
+                                messageText = string.Format("pdfName.IsDictionary : {0}", pdfName.IsDictionary().ToString());
+                                stringBuilder.Append(messageText);
+                                stringBuilder.Append("\r\n");
+                                messageText = string.Format("pdfName.IsFlushed : {0}", pdfName.IsFlushed().ToString());
+                                stringBuilder.Append(messageText);
+                                stringBuilder.Append("\r\n");
+                                messageText = string.Format("pdfName.IsIndirect : {0}", pdfName.IsIndirect().ToString());
+                                stringBuilder.Append(messageText);
+                                stringBuilder.Append("\r\n");
+                                messageText = string.Format("pdfName.IsIndirectReference : {0}", pdfName.IsIndirectReference().ToString());
+                                stringBuilder.Append(messageText);
+                                stringBuilder.Append("\r\n");
+                                messageText = string.Format("pdfName.IsLiteral : {0}", pdfName.IsLiteral().ToString());
+                                stringBuilder.Append(messageText);
+                                stringBuilder.Append("\r\n");
+                                messageText = string.Format("pdfName.IsModified : {0}", pdfName.IsModified().ToString());
+                                stringBuilder.Append(messageText);
+                                stringBuilder.Append("\r\n");
+                                messageText = string.Format("pdfName.IsName : {0}", pdfName.IsName().ToString());
+                                stringBuilder.Append(messageText);
+                                stringBuilder.Append("\r\n");
+                                messageText = string.Format("pdfName.IsNull : {0}", pdfName.IsNull().ToString());
+                                stringBuilder.Append(messageText);
+                                stringBuilder.Append("\r\n");
+                                messageText = string.Format("pdfName.IsNumber : {0}", pdfName.IsNumber().ToString());
+                                stringBuilder.Append(messageText);
+                                stringBuilder.Append("\r\n");
+                                messageText = string.Format("pdfName.IsReleaseForbidden : {0}", pdfName.IsReleaseForbidden().ToString());
+                                stringBuilder.Append(messageText);
+                                stringBuilder.Append("\r\n");
+                                messageText = string.Format("pdfName.IsStream : {0}", pdfName.IsStream().ToString());
+                                stringBuilder.Append(messageText);
+                                stringBuilder.Append("\r\n");
+                                messageText = string.Format("pdfName.IsString : {0}", pdfName.IsString().ToString());
+                                stringBuilder.Append(messageText);
+                                stringBuilder.Append("\r\n");
+
+                            }
+
+
+
+
+                            messageText = "----------\r\n";
+                            stringBuilder.Append(messageText);
+
+                            Debug.WriteLine(messageText);
 
                         }
                     }
+
+                    messageText = stringBuilder.ToString();
+                    txtInformation2.Text = messageText;
                 }
             }
         }
@@ -160,13 +282,6 @@ namespace ReadPDF
             iText.Kernel.Pdf.PdfReader pdfReader = null;
             iText.Kernel.Pdf.PdfDocument pdfDocument = null;
             PdfAcroForm pdfAcroForm = null;
-            iText.Forms.Fields.PdfFormField pdfFormField = null;
-            PdfString pdfString = null;
-            PdfString pdfString2 = null;
-            IDictionary<string, iText.Forms.Fields.PdfFormField> fields = null;
-            string sValue = "";
-            string sValue2 = "";
-            string key = "";
             string messageText = "";
             StringBuilder stringBuilder = null;
 
@@ -199,41 +314,55 @@ namespace ReadPDF
 
                     ProcessForm(pdfAcroForm);
 
-                    //fields = pdfAcroForm.GetFormFields();
-
-                    //if (fields.Count > 0)
-                    //{
-
-                    //    foreach (KeyValuePair<string, iText.Forms.Fields.PdfFormField> keyValue in fields)
-                    //    {
-
-                    //        key = keyValue.Key;
-                    //        pdfFormField = keyValue.Value;
-
-                    //        if (pdfFormField != null)
-                    //        {
-                    //            //messageText = string.Format("{0}: {1}\r\n", key, pdfFormField.GetFieldName().ToString());
-                    //            //stringBuilder.Append(messageText);
-
-                    //            //pdfString = pdfFormField.GetFieldName();
-                    //            //sValue = (pdfString != null) ? pdfString.GetValue() : "";
-
-                    //            //pdfString2 = pdfFormField.GetMappingName();
-                    //            //sValue2 = (pdfString2 != null) ? pdfString2.GetValue() : "";
-
-                    //            //messageText = string.Format("Field Name {0}\r\nMapping Name: {1}\r\n----------\r\n", sValue, sValue2);
-
-                    //        }
-
-                    //    }
-                    //    messageText = stringBuilder.ToString();
-                    //    txtInformation.Text = messageText;
-
-                    //}
-                }
+               }
+                pdfDocument.Close();
+                pdfReader.Close();
 
             }
 
+
+        }
+
+        private void ProcessTextFile(string sPath, string sFile)
+        {
+            string sPathFile = "";
+            iText.Kernel.Pdf.PdfReader pdfReader = null;
+            iText.Kernel.Pdf.PdfDocument pdfDocument = null;
+            ITextExtractionStrategy strategy = null;
+            string pageContent = "";
+            string messageText = "";
+            StringBuilder stringBuilder = null;
+
+            sPathFile = sPath;
+            if (sPathFile.EndsWith("\\") == false)
+            {
+                sPathFile += "\\";
+            }
+            sPathFile += sFile;
+
+            if (File.Exists(sPathFile) == true)
+            {
+                stringBuilder = new StringBuilder();
+
+                pdfReader = new PdfReader(sPathFile);
+
+                pdfDocument = new PdfDocument(pdfReader);
+
+                for (int page = 1; page <= pdfDocument.GetNumberOfPages(); page++)
+                {
+                    strategy = new SimpleTextExtractionStrategy();
+                    pageContent = PdfTextExtractor.GetTextFromPage(pdfDocument.GetPage(page), strategy);
+                    messageText = string.Format("Page: {0}\r\n", page);
+                    stringBuilder.Append(messageText);
+                    stringBuilder.Append(pageContent);
+                    stringBuilder.Append("\r\n----------\r\n");
+                }
+                messageText = stringBuilder.ToString();
+                txtInformation.Text = messageText;
+
+                pdfDocument.Close();
+                pdfReader.Close();
+            }
 
         }
 
@@ -245,6 +374,7 @@ namespace ReadPDF
             StringBuilder stringBuilder = null;
             string messageText = "";
             Exception exceptionDetails = null;
+            bool readText = chkProcessText.Checked;
             try
             {
                 this.Cursor = Cursors.WaitCursor;
@@ -255,7 +385,11 @@ namespace ReadPDF
                     (string.IsNullOrEmpty(sFile) == false))
                 {
                     txtInformation.Text = "";
-                    ProcessFile(sPath, sFile);
+                    txtInformation2.Text = "";
+                    if (readText == false)
+                        ProcessFile(sPath, sFile);
+                    else
+                        ProcessTextFile(sPath, sFile);
                 }
                 else
                 {
