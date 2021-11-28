@@ -14,12 +14,13 @@ using iText.Forms.Fields;
 using System.IO;
 using iText.Kernel.Pdf.Canvas.Parser.Listener;
 using iText.Kernel.Pdf.Canvas.Parser;
+using ReadPDF.Logic;
 
 namespace ReadPDF
 {
-    public partial class Form1 : Form
+    public partial class frmReadPdf : Form
     {
-        public Form1()
+        public frmReadPdf()
         {
             InitializeComponent();
         }
@@ -116,6 +117,13 @@ namespace ReadPDF
             string messageText = "";
             StringBuilder stringBuilder = null;
             byte ot = 0;
+            ucTextInput uc = null;
+
+            foreach (Control ctrl in flowLayoutPanel1.Controls)
+            {
+                ctrl.Dispose();
+            }
+
             if (pdfAcroForm != null)
             {
                 fields = pdfAcroForm.GetFormFields();
@@ -128,10 +136,24 @@ namespace ReadPDF
                         if (item != null)
                         {
 
+                            uc = new ucTextInput();
+                            uc.LabelKey = key;
+                            uc.LabelValue = item.GetValueAsString();
+
+                            if ((flowLayoutPanel1.Controls.Count > 0) && (IsOdd(flowLayoutPanel1.Controls.Count) == true) )
+                            {
+                                uc.BackColor = Color.LightBlue;
+                            }
+                            else
+                            {
+                                uc.BackColor = Color.LightGray;
+                            }
+
                             messageText = string.Format("key: {0}\r\nValue: {1}\r\n", key, item.GetValueAsString());
                             stringBuilder.Append(messageText);
                             stringBuilder.Append("\r\n");
                             Debug.WriteLine(messageText);
+
 
                             pdfString = item.GetAlternativeName();
                             if (pdfString != null)
@@ -141,6 +163,7 @@ namespace ReadPDF
                                 stringBuilder.Append(messageText);
                                 stringBuilder.Append("\r\n");
                                 Debug.WriteLine(messageText);
+                                uc.LabelContent = value;
                             }
 
                             pdfName = item.GetFormType();
@@ -285,9 +308,7 @@ namespace ReadPDF
                                 Debug.WriteLine(messageText);
 
                             }
-
-
-
+                            this.flowLayoutPanel1.Controls.Add(uc);
 
                             messageText = "----------\r\n";
                             stringBuilder.Append(messageText);
@@ -303,6 +324,11 @@ namespace ReadPDF
             }
         }
 
+        public bool IsOdd(int value)
+        {
+            return value % 2 != 0;
+        }
+
         private void ProcessFile(string sPath, string sFile)
         {
 
@@ -312,7 +338,6 @@ namespace ReadPDF
             PdfAcroForm pdfAcroForm = null;
             string messageText = "";
             StringBuilder stringBuilder = null;
-
             sPathFile = sPath;
             if (sPathFile.EndsWith("\\") == false)
             {

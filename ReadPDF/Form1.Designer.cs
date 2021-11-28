@@ -1,7 +1,7 @@
 ﻿
 namespace ReadPDF
 {
-    partial class Form1
+    partial class frmReadPdf
     {
         /// <summary>
         /// Required designer variable.
@@ -41,6 +41,7 @@ namespace ReadPDF
             this.txtInformation = new System.Windows.Forms.TextBox();
             this.txtInformation2 = new System.Windows.Forms.TextBox();
             this.chkProcessText = new System.Windows.Forms.CheckBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -111,24 +112,21 @@ namespace ReadPDF
             // 
             // txtInformation
             // 
-            this.txtInformation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtInformation.Location = new System.Drawing.Point(12, 159);
+            this.txtInformation.Location = new System.Drawing.Point(12, 115);
             this.txtInformation.Multiline = true;
             this.txtInformation.Name = "txtInformation";
             this.txtInformation.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtInformation.Size = new System.Drawing.Size(251, 271);
+            this.txtInformation.Size = new System.Drawing.Size(251, 191);
             this.txtInformation.TabIndex = 7;
             // 
             // txtInformation2
             // 
-            this.txtInformation2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtInformation2.Location = new System.Drawing.Point(291, 159);
+            this.txtInformation2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtInformation2.Location = new System.Drawing.Point(291, 117);
             this.txtInformation2.Multiline = true;
             this.txtInformation2.Name = "txtInformation2";
             this.txtInformation2.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtInformation2.Size = new System.Drawing.Size(251, 271);
+            this.txtInformation2.Size = new System.Drawing.Size(251, 187);
             this.txtInformation2.TabIndex = 8;
             // 
             // chkProcessText
@@ -141,11 +139,25 @@ namespace ReadPDF
             this.chkProcessText.Text = "Process Text";
             this.chkProcessText.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.White;
+            this.flowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(13, 313);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(529, 424);
+            this.flowLayoutPanel1.TabIndex = 10;
+            // 
+            // frmReadPdf
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(554, 450);
+            this.ClientSize = new System.Drawing.Size(554, 749);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.chkProcessText);
             this.Controls.Add(this.txtInformation2);
             this.Controls.Add(this.txtInformation);
@@ -156,8 +168,9 @@ namespace ReadPDF
             this.Controls.Add(this.txtPath);
             this.Controls.Add(this.lblFile);
             this.Controls.Add(this.lblPath);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "frmReadPdf";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Read PDF";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -178,6 +191,7 @@ namespace ReadPDF
         private System.Windows.Forms.TextBox txtInformation;
         private System.Windows.Forms.TextBox txtInformation2;
         private System.Windows.Forms.CheckBox chkProcessText;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
 
