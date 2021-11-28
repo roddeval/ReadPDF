@@ -119,10 +119,7 @@ namespace ReadPDF
             byte ot = 0;
             ucTextInput uc = null;
 
-            foreach (Control ctrl in flowLayoutPanel1.Controls)
-            {
-                ctrl.Dispose();
-            }
+            flowLayoutPanel1.Controls.Clear();
 
             if (pdfAcroForm != null)
             {
@@ -164,6 +161,15 @@ namespace ReadPDF
                                 stringBuilder.Append("\r\n");
                                 Debug.WriteLine(messageText);
                                 uc.LabelContent = value;
+                            }
+                            else
+                            {
+                                pdfString = item.GetFieldName();
+                                if (pdfString != null)
+                                {
+                                    value = pdfString.GetValue();
+                                    uc.LabelContent = value;
+                                }
                             }
 
                             pdfName = item.GetFormType();
